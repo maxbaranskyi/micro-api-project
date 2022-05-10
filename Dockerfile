@@ -2,6 +2,11 @@ FROM php:8.0-apache
 
 USER root
 
+# Add `www-data` to group `appuser`
+RUN addgroup --gid 1000 appuser; \
+  adduser --uid 1000 --gid 1000 --disabled-password appuser; \
+  adduser www-data appuser;
+
 WORKDIR /var/www/html
 
 RUN apt-get update && apt-get install -y \
